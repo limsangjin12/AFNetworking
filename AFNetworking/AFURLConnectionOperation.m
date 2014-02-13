@@ -591,7 +591,11 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
     if (self.redirectResponse) {
         return self.redirectResponse(connection, request, redirectResponse);
     } else {
-        return nil;
+        if (redirectResponse) {
+            return nil;
+        } else {
+            return request;
+        }
     }
 }
 
