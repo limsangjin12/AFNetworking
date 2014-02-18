@@ -590,12 +590,12 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
 {
     if (self.redirectResponse) {
         return self.redirectResponse(connection, request, redirectResponse);
+    } else if (redirectResponse) {
+        __strong NSMutableURLRequest *mutableRequest = [request mutableCopy];
+        mutableRequest.HTTPMethod = @"GET";
+        return mutableRequest;
     } else {
-        if (redirectResponse) {
-            return nil;
-        } else {
-            return request;
-        }
+        return request;
     }
 }
 
